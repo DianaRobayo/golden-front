@@ -3,7 +3,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { Login } from '../components/Login'
 import { Home } from '../components/Home'
 import { Contact } from '../components/Contact'
-import { Portavasos } from '../components/Portavasos'
+import { Categorias } from '../components/Categorias'
+import { DetailProduct } from '../components/DetailProduct'
 
 export const AppRouter = () => {
   return (
@@ -15,7 +16,8 @@ export const AppRouter = () => {
         <Route path='/' element={<Home />}></Route>
         <Route path='/inicio' element={<Home />}></Route>
         <Route path='/login' element={<Login />}></Route>
-        <Route path='/portavasos' element={<Portavasos />}></Route>
+        <Route path='/categoria' element={<Categorias />}></Route>
+        <Route path='/detalle' element={<DetailProduct />}></Route>
         {/* <Route path='/acerca-de' element={<About />}></Route> */}
         <Route path='/contacto' element={<Contact />}></Route>
         <Route path='*' element={(

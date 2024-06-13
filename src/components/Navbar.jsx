@@ -29,15 +29,12 @@ export const Navbar = () => {
                   Categorías
                 </a>
                 <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <li><a className="dropdown-item" href="/portavasos">Portavasos</a></li>
+                  <li><a className="dropdown-item" href="/categoria">Portavasos</a></li>
                   {/* <li><hr className="dropdown-divider"/></li> */}
                   <li><a className="dropdown-item" href="#">Portacelulares</a></li>
                   {/* <li><hr className="dropdown-divider"/></li> */}
                   <li><a className="dropdown-item" href="#">Llaveros</a></li>
                 </ul>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="#">Productos</a>
               </li>
               <li className="nav-item">
                 <a className="nav-link" href="/contacto">Contacto</a>
@@ -61,13 +58,6 @@ export const Navbar = () => {
                 role="button"
                 aria-expanded="false">
                 <FaUserCircle height="25" />
-                {/* <img
-                  src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
-                  className="rounded-circle"
-                  height="25"
-                  alt="Black and White Portrait of a Man"
-                  loading="lazy"
-                /> */}
               </a>
               <ul
                 className="dropdown-menu dropdown-menu-end"

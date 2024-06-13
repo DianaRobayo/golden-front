@@ -27,32 +27,55 @@
 /* Fin Carousel */
 
 /* Cards */
-.card {}
+.card {
+  border-radius: 2rem;
+}
 
-.card-body {
-  background-color: #22262a;
+.card-body .home{
   color: white;
+  // border-radius: 2rem 0 0 1rem;
+}
+
+summary {
+  list-style-type: '⬇ ';
+  background-color: #a18350;
+  color: white;
+  padding: 3px;
+  border-radius: 30px 0px 30px 0px;
+  font-size: 16px;
+}
+
+details {
+  background-color: #a18350c4;
+  font-size: 13px;
+  border-radius: 30px 0 0 0;
+}
+
+details[open]>summary {
+  list-style-type: '⬆ ';
+  background-color: #a18350;
+  border-radius: 30px 0px 0px 0px;
 }
 
 .card-img-top {
-  border-radius: 40px;
-  width: 290px;
+  border-radius: 2rem 0 2rem 0;
+  width: 250px;
   align-self: center;
   margin-top: 10px;
   margin-bottom: 10px;
 }
 
 .numberCircle {
-  width: 78px;
-  height: 28px;
-  border-radius: 8px;
+  width: 84px;
+  height: 30px;
+  border-radius: 100%;
   text-align: center;
   font-size: 16px;
-  border: 2px solid #643b12;
-  color: white;
-  background: #b4600dcc;
+  border: 1px solid rgba(192, 171, 136, 0.7882352941);
+  color: #81560d;
+  background: rgba(192, 171, 136, 0.7882352941);
   position: absolute;
-  top: 3px;
+  top: 14px;
   left: 69%;
   transform: translateX(30%);
   font-weight: bold;
@@ -64,6 +87,7 @@
 .contact-page {
 
   background-color: #f9f9f9;
+
   &__banner {
     img {
       width: 100%;

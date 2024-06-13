@@ -3,7 +3,7 @@ import { Navbar } from './Navbar';
 import { Carousel } from './Carousel';
 import { CardHome } from './CardHome';
 
-export const Portavasos = () => {
+export const Categorias = () => {
   return (
     <div>
       <Navbar />
