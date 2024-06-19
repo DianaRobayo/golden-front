@@ -13,7 +13,7 @@ export const Home = () => {
       <div className='container'>
         <Carousel />
         <br />
-        <CardHome />
+        <CardHome screen="home"/>
       </div>
 
       <Footer />

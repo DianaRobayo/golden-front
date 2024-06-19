@@ -1,6 +1,6 @@
 import React from 'react'
-import { Navbar } from './Navbar';
-import banner from '../img/banner-contact.jpg';
+import { Navbar } from '../Navbar';
+import banner from '../../img/banner-contact.jpg';
 import { FaInstagram, FaWhatsapp } from "react-icons/fa";
 import { CiMail } from "react-icons/ci";
 
@@ -16,10 +16,11 @@ export const Contact = () => {
         <h2 className='mb-5 text-primary-dark'> Gracias por visitar nuestra página </h2>
         <div className="row g-4 align-items-center">
           <div className='col col-12 col-md-4'>
-            <a href="https://www.instagram.com/goldenskymc/" className="fs-1 me-4 text-reset">
+            <a href="https://www.instagram.com/goldenskymc/" className="fs-1 me-4 text-reset"
+              target="_blank" rel="noopener noreferrer">
               <FaInstagram />
             </a>
-            <p>Nos puedes seguir en nuestra red social de instagram @goldenckymc</p>
+            <p>Nos puedes seguir en nuestra red social de instagram @goldenskymc</p>
 
 
           </div>

@@ -31,30 +31,37 @@
   border-radius: 2rem;
 }
 
-.card-body .home{
-  color: white;
+.card-body {
+  &__detail {
+    color: white;
+  }
+
+  &__description {
+    color: white;
+  }
+
+  summary {
+    list-style-type: '⬇ ';
+    background-color: #a18350;
+    color: white;
+    padding: 3px;
+    border-radius: 30px 0px 30px 0px;
+    font-size: 16px;
+  }
+
+  details {
+    background-color: #a18350c4;
+    font-size: 13px;
+    border-radius: 30px 0 0 0;
+  }
+
+  details[open]>summary {
+    list-style-type: '⬆ ';
+    background-color: #a18350;
+    border-radius: 30px 0px 0px 0px;
+  }
+
   // border-radius: 2rem 0 0 1rem;
-}
-
-summary {
-  list-style-type: '⬇ ';
-  background-color: #a18350;
-  color: white;
-  padding: 3px;
-  border-radius: 30px 0px 30px 0px;
-  font-size: 16px;
-}
-
-details {
-  background-color: #a18350c4;
-  font-size: 13px;
-  border-radius: 30px 0 0 0;
-}
-
-details[open]>summary {
-  list-style-type: '⬆ ';
-  background-color: #a18350;
-  border-radius: 30px 0px 0px 0px;
 }
 
 .card-img-top {
@@ -113,4 +120,45 @@ details[open]>summary {
 .style-footer {
   background-color: #212529;
   color: white;
+}
+
+/* Table */
+.table-crud {
+  padding: 4rem;
+
+  &__button-create {
+    text-align: start;
+  }
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+  border: 1px solid #ddd;
+}
+
+thead {
+  background-color: #333;
+  color: white;
+}
+
+th,
+td {
+  text-align: center;
+  padding: 10px;
+}
+
+tr:nth-child(even) {
+  background: #e7e7e7;
+}
+
+/* Forms */
+.form-label {
+  font-weight: 500 !important;
+}
+
+.required:after {
+  content: " *";
+  color: rgb(175, 9, 9);
 }

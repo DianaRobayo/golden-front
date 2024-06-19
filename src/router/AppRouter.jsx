@@ -2,9 +2,11 @@ import React from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { Login } from '../components/Login'
 import { Home } from '../components/Home'
-import { Contact } from '../components/Contact'
-import { Categorias } from '../components/Categorias'
-import { DetailProduct } from '../components/DetailProduct'
+import { Contact } from '../components/user/Contact'
+import { Categories } from '../components/user/Categories'
+import { DetailProduct } from '../components/user/DetailProduct'
+import { CrudCategories } from '../components/admin/CrudCategories'
+import { CrudProducts } from '../components/admin/CrudProducts'
 
 export const AppRouter = () => {
   return (
@@ -16,10 +18,11 @@ export const AppRouter = () => {
         <Route path='/' element={<Home />}></Route>
         <Route path='/inicio' element={<Home />}></Route>
         <Route path='/login' element={<Login />}></Route>
-        <Route path='/categoria' element={<Categorias />}></Route>
-        <Route path='/detalle' element={<DetailProduct />}></Route>
-        {/* <Route path='/acerca-de' element={<About />}></Route> */}
+        <Route path='/categoria' element={<Categories />}></Route>
+        <Route path='/detalle/:id' element={<DetailProduct />}></Route>
         <Route path='/contacto' element={<Contact />}></Route>
+        <Route path='/crud-categorias' element={<CrudCategories />}></Route>
+        <Route path='/crud-productos' element={<CrudProducts />}></Route>
         <Route path='*' element={(
           <div>
             <h1>Error en la página</h1>

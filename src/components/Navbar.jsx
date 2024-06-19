@@ -23,7 +23,7 @@ export const Navbar = () => {
                   Inicio
                 </a>
               </li>
-              {/* <!-- Dropdown --> */}
+              {/* <!-- Dropdown user --> */}
               <li className="nav-item dropdown">
                 <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   Categorías
@@ -34,6 +34,17 @@ export const Navbar = () => {
                   <li><a className="dropdown-item" href="#">Portacelulares</a></li>
                   {/* <li><hr className="dropdown-divider"/></li> */}
                   <li><a className="dropdown-item" href="#">Llaveros</a></li>
+                </ul>
+              </li>
+              {/* <!-- Dropdown admin --> */}
+              <li className="nav-item dropdown">
+                <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  CRUD
+                </a>
+                <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><a className="dropdown-item" href="#">Usuarios</a></li>
+                  <li><a className="dropdown-item" href="/crud-categorias">Categorías</a></li>
+                  <li><a className="dropdown-item" href="/crud-productos">Productos</a></li>
                 </ul>
               </li>
               <li className="nav-item">

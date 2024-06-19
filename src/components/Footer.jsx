@@ -20,7 +20,7 @@ export const Footer = () => {
             <a href="" className="me-4 text-reset">
               <i className="fab fa-facebook-f"></i>
             </a>
-            <a href="https://www.instagram.com/goldenskymc/" className="me-4 text-reset">
+            <a href="https://www.instagram.com/goldenskymc/" className="me-4 text-reset" target="_blank" rel="noopener noreferrer">
               <FaInstagram /> 
             </a>
             <a href="" className="me-4 text-reset">

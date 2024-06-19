@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import haku from '../img/portavasos/haku1.png';
 import bruja from '../img/portavasos/bruja1.png';
 import chihiro from '../img/portavasos/chihiro.png';
@@ -7,43 +7,103 @@ import bo from '../img/portavasos/bo.png';
 import kikis from '../img/portavasos/kikis1.png';
 import ponyo from '../img/portavasos/ponyo1.png';
 import totoro from '../img/portavasos/totoro1.png';
+import { getAllProduct } from '../services/apiService.service.js';
 
-export const CardHome = () => {
-  const products = [
-    { image: haku, product_name: 'Haku', price: '2000', description: 'Text product' },
-    { image: pulgas, product_name: 'Susuwatari', price: '2000', description: 'Text product' },
-    { image: bruja, product_name: 'Yubaba', price: '2000', description: 'Text xx' },
-    { image: chihiro, product_name: 'Chihiro', price: '2000', description: 'Text product' },
-    { image: bo, product_name: 'Bō', price: '2000', description: 'Text product' },
-    { image: kikis, product_name: 'Kikis', price: '2000', description: 'Text product' },
-    { image: ponyo, product_name: 'Ponyo', price: '2000', description: 'Text product' },
-    { image: totoro, product_name: 'Totoro', price: '2000', description: 'Text product' }
+export const CardHome = ({ screen }) => {
+  const [products, setProduct] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  ];
+  // const products = [
+  //   { id: 1, image: haku, product_name: 'Haku', price: '2000', description: 'Text product' },
+  //   { id: 2, image: pulgas, product_name: 'Susuwatari', price: '2000', description: 'Text product' },
+  //   { id: 3, image: bruja, product_name: 'Yubaba', price: '2000', description: 'Text xx' },
+  //   { id: 4, image: chihiro, product_name: 'Chihiro', price: '2000', description: 'Text product' },
+  //   { id: 5, image: bo, product_name: 'Bō', price: '2000', description: 'Text product' },
+  //   { id: 6, image: kikis, product_name: 'Kikis', price: '2000', description: 'Text product' },
+  //   { id: 7, image: ponyo, product_name: 'Ponyo', price: '2000', description: 'Text product' },
+  //   { id: 8, image: totoro, product_name: 'Totoro', price: '2000', description: 'Text product' }
+
+  // ];
+
+  /* Productos */
+  useEffect(() => {
+    const getProducts = async () => {
+      try {
+        const res = await getAllProduct();
+        console.log('controler response', res)
+
+        // const data = await response.json();
+        if (res) {
+          setProduct(res);
+        } else {
+          console.log('error')
+        }
+
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    getProducts();
+  }, []);
+
+  if (!products) {
+    return <div>El producto no se encuentra</div>;
+  }
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
 
   return (
     <>
       <div className="row row-cols-1 row-cols-md-3 g-4 align-items-center">
         {products.map((data, index) => (
           <div className="col" key={index}>
-            <div className="card">
-              <div className="numberCircle">$ {data.price}</div>
-              <img src={data.image} className="card-img-top" alt={data.product_name} />
-              <div className="card-body home">
-                <details>
-                  <summary>
-                    {data.product_name.toUpperCase()}
-                  </summary>
-                  {/* <div className="row row-cols-1 row-cols-md-2 g-4"> */}
-                  {/* <p className="card-text">{data.description}</p> */}
-                  {/* </div> */}
-
-                  <p>
-                    {data.description}
-                  </p>
-                </details>
+            {/* {data.privilege} */}
+            {/* {(data.privilege) ? */}
+              <div className="card">
+                <div className="numberCircle">$ {data.price}</div>
+                <a href={`/detalle/${data.id_product}`} className="fs-1 me-4 text-success">
+                  <img src={haku} className="card-img-top" alt={data.product_name} />
+                </a>
+                <div className="card-body">
+                  <details className="card-body__detail">
+                    <summary>
+                      {data.product_name.toUpperCase()}
+                    </summary>
+                    <p className='card-body__description'>
+                      {data.description}
+                    </p>
+                  </details>
+                </div>
               </div>
-            </div>
+              {/* : */}
+              {/* <div className="card"> */}
+                {/* <div className="numberCircle">$ {data.price}</div>
+                <a href={`/detalle/${data.id}`} className="fs-1 me-4 text-success">
+                  <img src={haku} className="card-img-top" alt={data.product_name} />
+                </a>
+                <div className="card-body">
+                  <details className="card-body__detail">
+                    <summary>
+                      {data.product_name.toUpperCase()}
+                    </summary>
+                    <p className='card-body__description'>
+                      {data.description}
+                    </p>
+                  </details>
+                </div> */}
+              {/* </div> */}
+            {/* } */}
           </div>
         ))}
       </div>
