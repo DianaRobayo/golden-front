@@ -9,8 +9,7 @@ import { FaAngleRight } from "react-icons/fa6";
 import { MdOutlineAddBox } from "react-icons/md";
 
 
-
-export const Table = ({ data, columns, name, create}) => {
+export const Table = ({ data, columns, name, setTitle }) => {
   // console.log('data', data)
   // console.log('columns', columns)
 
@@ -39,10 +38,14 @@ export const Table = ({ data, columns, name, create}) => {
 
   return (
     <div className='container table-crud'>
-      <input className="mb-5" type="text" name="filter" value={filtering} placeholder='Búsqueda' onChange={(e) => setFiltering(e.target.value)} />
+      <label className="form-label me-4">Buscador </label>
+      <input className="mb-5" type="text" name="filter" value={filtering}
+        placeholder='Búsqueda' onChange={(e) => setFiltering(e.target.value)} />
+
       <div className='table-crud__button-create mb-2'>
         <span> <strong> Crear {name} </strong></span>
-        <button className="btn btn-success" onClick={()=> create()}>
+        <button className="btn btn-success" onClick={setTitle}
+          data-bs-toggle="modal" data-bs-target="#editModal" tabIndex='-1'>
           <MdOutlineAddBox />
         </button>
       </div>
@@ -55,12 +58,8 @@ export const Table = ({ data, columns, name, create}) => {
                 {
                   headerGroup.headers.map(header => (
                     <th key={header.id} onClick={header.column.getToggleSortingHandler()}>
-                      {
-                        flexRender(header.column.columnDef.header, header.getContext())
-                      }
-                      {
-                        { 'asc': '⬆️', 'desc': '⬇️' }[header.column.getIsSorted() ?? null]
-                      }
+                      {flexRender(header.column.columnDef.header, header.getContext())}
+                      {{ 'asc': '⬆️', 'desc': '⬇️' }[header.column.getIsSorted() ?? null]}
                     </th>
                   ))
                 }
@@ -75,9 +74,7 @@ export const Table = ({ data, columns, name, create}) => {
               <tr key={row.id}>
                 {row.getVisibleCells().map((cell) => (
                   <td key={cell.id} >
-                    {
-                      flexRender(cell.column.columnDef.cell, cell.getContext())
-                    }
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </td>
                 ))}
               </tr>
@@ -94,7 +91,7 @@ export const Table = ({ data, columns, name, create}) => {
           <FaAngleLeft />
         </button>
         <button className="btn btn-secondary" onClick={() => tables.nextPage()}>
-          <FaAngleRight  />
+          <FaAngleRight />
         </button>
         {/* <button onClick={() => tables.setPageIndex(tables.getPageCount() - 1)}>
         Última página

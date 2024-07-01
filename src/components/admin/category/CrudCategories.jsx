@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { getAllCategories } from '../../services/apiService.service';
-import { Table } from './Table';
+import { getAllCategoriesService, createCategoryService, editCategoryService } from '../../../services/apiService.service';
+import { Table } from '../Table';
 import { FaEdit } from "react-icons/fa";
-import { Navbar } from '../Navbar';
-import { Footer } from '../Footer';
+import { Navbar } from '../../Navbar';
+import { Footer } from '../../Footer';
+import { ModalCategory } from './ModalCategory';
 
 export const CrudCategories = () => {
 
@@ -13,6 +14,8 @@ export const CrudCategories = () => {
   const [editingId, setEditingId] = useState(0);
   const [editedCategory, setEditedCategory] = useState({});
   const [isEditing, setIsEditing] = useState(false);
+  const [titleModal, setTitleModal] = useState('');
+  const [deleteId, setDeleteId] = useState(null);
 
   const columns = [
     { header: 'Id', accessorKey: 'id_category' },
@@ -21,17 +24,17 @@ export const CrudCategories = () => {
       header: 'Editar', accessorKey: '', cell: (value) => (
         <button className="btn btn-success" data-bs-toggle="modal"
           data-bs-target="#editModal" onClick={
-            () =>  {
+            () => {
+              setTitleModal('Editar categoría');
               const id = value.row.original.id_category;
-              console.log('id', id);
               setEditingId(id);
+
               // Activamos el estado de edición
               setIsEditing(true);
-
               const categoryToEdit = categories.find(obj => obj.id_category === id);
-              console.log('cate', categoryToEdit)
+
               // Establecemos los datos de la persona a editar
-              setEditedCategory({ ...categoryToEdit });
+              setEditedCategory({ ...categoryToEdit });            
 
             }}>
           <FaEdit />
@@ -43,7 +46,7 @@ export const CrudCategories = () => {
   useEffect(() => {
     const getCategories = async () => {
       try {
-        const res = await getAllCategories();
+        const res = await getAllCategoriesService();
         if (res) {
           setCategories(res);
         }
@@ -67,12 +70,37 @@ export const CrudCategories = () => {
     }));
   }
 
-  /* Metodo para guardar */
+  /* Metodo para guardar al momento de editar */
   const handleSave = (e) => {
     setCategories(categories.map(category => category.id_category === editingId ? editedCategory : category));
     setEditingId(null);
     setEditedCategory({ category_name: '' });
     setIsEditing(false);
+
+    // Servicio de editar
+    editCategoryService(editingId, editedCategory).then((res) => {
+      console.log('editado', res)
+     
+    }, (error) => {
+      console.log('error', error)
+    });
+  }
+
+  const setTitleCreate = () => {
+    setTitleModal('Crear categoría');
+  }
+
+  /* Metodo que guarda y crea la categoria */
+  const handleCreate = () => {
+    setCategories([...categories, { id_category: categories.length + 1, ...editedCategory }]);
+    setEditedCategory({ category_name: '' });
+
+    // Servicio de crear
+    createCategoryService(editedCategory).then((res) => {
+      console.log('creado', res)     
+    }, (error) => {
+      console.log('error', error)
+    });
   }
 
   /* Metodo para eliminar */
@@ -83,11 +111,10 @@ export const CrudCategories = () => {
     // setPersons(updatedPersons);
   }
 
-  const handleCreate = () => {
-    setCategories([...categories, { id: categories.length + 1, ...editedCategory }]);
-    setEditedCategory({ category_name: '' });
+  const cancelDelete = () => {
+    setEditingId(null);
+    setDeleteId(null);
   }
-
 
   if (!categories) {
     return <div>La categoría no se encuentra</div>;
@@ -106,39 +133,17 @@ export const CrudCategories = () => {
     <div>
       <Navbar />
 
-      <div className='container'>
+      <div className='container mt-5'>
         <h2>Categorías de la aplicación</h2>
-        <Table data={categories} columns={columns} name={'Categoría'} create={handleCreate} />
+        <Table data={categories} columns={columns} name={'Categoría'}
+          titleModal={titleModal} setTitle={setTitleCreate} />
 
         {/* Modal */}
         <div id="editModal" className='modal fade' tabIndex='-1'>
-          <div className='modal-dialog'>
-            <div className='modal-content'>
-              <div className='modal-header'>
-                <h3 className='modal-title'>Categoría</h3>
-                <button type='button' className='btn-close' data-bs-dismiss="modal"
-                  aria-label='close' >
-                </button>
-              </div>
-              <div className='modal-body'>
-                <label className="form-label required">Nombre de la categoría </label>
-                <input type="text" className='form-control' name="category_name"
-                  value={editedCategory.category_name || ''}
-                  onChange={handleChange}  required/>
-              </div>
-              <div className='modal-footer'>
-                <button type='button' className='btn btn-secondary'
-                  data-bs-dismiss="modal" >
-                  Cancelar
-                </button>
-                <button type='button' className='btn btn-success' onClick={handleSave}
-                  data-bs-dismiss="modal" >
-                  Agregar
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>        
+          <ModalCategory titleModal={titleModal} handleChange={handleChange}
+            editedCategory={editedCategory} handleSave={handleSave} isEditing={isEditing}
+            cancelDelete={cancelDelete} handleCreate={handleCreate} />
+        </div>
       </div>
 
       <Footer />

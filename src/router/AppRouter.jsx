@@ -5,8 +5,8 @@ import { Home } from '../components/Home'
 import { Contact } from '../components/user/Contact'
 import { Categories } from '../components/user/Categories'
 import { DetailProduct } from '../components/user/DetailProduct'
-import { CrudCategories } from '../components/admin/CrudCategories'
-import { CrudProducts } from '../components/admin/CrudProducts'
+import { CrudCategories } from '../components/admin/category/CrudCategories'
+import { CrudProducts } from '../components/admin/product/CrudProducts'
 
 export const AppRouter = () => {
   return (
@@ -18,7 +18,7 @@ export const AppRouter = () => {
         <Route path='/' element={<Home />}></Route>
         <Route path='/inicio' element={<Home />}></Route>
         <Route path='/login' element={<Login />}></Route>
-        <Route path='/categoria' element={<Categories />}></Route>
+        <Route path='/categoria/:page?' element={<Categories />}></Route>
         <Route path='/detalle/:id' element={<DetailProduct />}></Route>
         <Route path='/contacto' element={<Contact />}></Route>
         <Route path='/crud-categorias' element={<CrudCategories />}></Route>

@@ -2,22 +2,21 @@ import React from 'react'
 import chihiro1 from '../img/portavasos/chihiro1.jpg';
 import chihiro2 from '../img/portavasos/chihiro2.jpg';
 import chihiro3 from '../img/portavasos/chihiro3.jpg';
-import chihiro4 from '../img/portavasos/chihiro4.jpg';
-import kikis from '../img/portavasos/kikis.jpg';
-import ponyo from '../img/portavasos/ponyo.jpg';
-import totoro from '../img/portavasos/totoro.jpg';
+import pikachu from '../img/portavasos/pikachu1.png';
+import squartle from '../img/portavasos/squartle1.png';
+import hipo from '../img/portacelular-hipo.jpg';
+import leon from '../img/portacelular-leon.jpg';
 
 
 export const Carousel = () => {
   const products = [
     { image: chihiro1, product_name: 'Ratón'},
+    { image: pikachu, product_name: 'Pikachu'},
+    { image: hipo, product_name: 'Hipo'},
     { image: chihiro2, product_name: 'Pulgas'},
-    { image: chihiro3, product_name: 'Dragón'},
-    { image: chihiro4, product_name: 'Dragón'},
-    { image: kikis, product_name: 'Kikis'},
-    { image: ponyo, product_name: 'Ponyo'},
-    { image: totoro, product_name: 'Totoro'}  
-
+    { image: squartle, product_name: 'Squartle'},
+    { image: leon, product_name: 'León'}, 
+    { image: chihiro3, product_name: 'Dragón'}
   ];
 
   return (

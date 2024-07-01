@@ -3,8 +3,7 @@ import { Navbar } from '../Navbar.jsx';
 import { Footer } from '../Footer.jsx';
 import { FaInstagram } from "react-icons/fa";
 import { useParams } from 'react-router-dom';
-import { fetchProduct } from '../../services/apiService.service.js';
-import totoro from '../../img/portavasos/totoro1.png';
+import { fetchProductService } from '../../services/apiService.service.js';
 
 export const DetailProduct = () => {
 
@@ -16,7 +15,7 @@ export const DetailProduct = () => {
   useEffect(() => {
     const getDetailProduct = async () => {
       try {
-        const res = await fetchProduct(id);
+        const res = await fetchProductService(id);
 
         if (res) {
           setProduct(res);
@@ -56,14 +55,14 @@ export const DetailProduct = () => {
     <div>
       <Navbar />
       <div className='container'>
-        <div className="card mb-3 mw-100 mt-5">
+        <div className="card card_detail mb-3 mw-100 mt-5">
           <div className="row g-0">
             <div className="col-md-4 p-2">
-              <img src={totoro} className="img-fluid rounded-start" alt="totoro" />
+              <img src={product.url_image} className="img-fluid rounded-start" alt="totoro" />
             </div>
             <div className="col-md-8">
               <div className="card-body">
-                <h5 className="card-title mb-4">{product.product_name}</h5>
+                <h4 className="card-title mb-4 fw-bold">{product.product_name}</h4>
                 <p className="card-text fs-3 fw-bold text-start">$ {product.price}</p>
 
                 <div className="d-flex align-items-start">
@@ -73,7 +72,7 @@ export const DetailProduct = () => {
                   </div>
 
                   <div className="tab-content" id="v-pills-tabContent">
-                    <div className="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                    <div className="tab-pane fade show active text-left" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
                       {product.description}
                     </div>
                     <div className="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
@@ -88,12 +87,6 @@ export const DetailProduct = () => {
                   </div>
                 </div>
 
-                <div className='d-flex'>
-                  <div>
-                    <button type="button" className="btn btn-outline-success rounded" onClick={handleGoBackClick}>Regresar</button>
-                  </div>
-                </div>
-
                 <p className="card-text mt-5">
                   <small className="text-muted">Síguenos en
                     <a href="https://www.instagram.com/goldenskymc/" target="_blank" rel="noopener noreferrer" className="ms-2 text-reset">
@@ -104,6 +97,12 @@ export const DetailProduct = () => {
               </div>
             </div>
           </div>
+        </div>
+      </div>
+
+      <div className="container h-100">
+        <div className='text-right'>
+          <button type="button" className="btn btn-outline-success" onClick={handleGoBackClick}>Regresar</button>
         </div>
       </div>
 

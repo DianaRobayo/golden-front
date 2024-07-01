@@ -3,6 +3,7 @@ import { Navbar } from '../Navbar';
 import banner from '../../img/banner-contact.jpg';
 import { FaInstagram, FaWhatsapp } from "react-icons/fa";
 import { CiMail } from "react-icons/ci";
+import letrero from '../../img/letrero.jpg';
 
 
 export const Contact = () => {
@@ -37,6 +38,17 @@ export const Contact = () => {
         </div>
       </div>
       <div></div>
+      <hr />
+
+      <div className='row'>
+        <div className="col-sm-6 col-lg-4 mb-4 mt-4 card-contact" >
+          <div className=" text-center">
+            <div className="">
+                <img src={letrero} className="mb-5 bg-body rounded" width="400" height="450" alt={'letrero'} />
+            </div>
+          </div>
+        </div>
+      </div>
 
 
     </div>
