@@ -65,7 +65,9 @@ export const getAllProductService = async () => {
 
 export const createProductService = async (body) => {
   try {
-    const response = await apiClient.post(`/product`, body);
+    const response = await apiClient.post(`/product`, body, { headers: {
+      'content-type': 'multipart/form-data'
+    }});
     console.log('entro servicio', response)
     return response.data;
   } catch (error) {

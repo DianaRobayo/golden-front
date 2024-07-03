@@ -5,6 +5,8 @@ import { FaEdit } from "react-icons/fa";
 import { Navbar } from '../../Navbar';
 import { Footer } from '../../Footer';
 import { ModalCategory } from './ModalCategory';
+import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
 
 export const CrudCategories = () => {
 
@@ -16,6 +18,7 @@ export const CrudCategories = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [titleModal, setTitleModal] = useState('');
   const [deleteId, setDeleteId] = useState(null);
+  const navigate = useNavigate();   // Hook para redirigir
 
   const columns = [
     { header: 'Id', accessorKey: 'id_category' },
@@ -79,7 +82,16 @@ export const CrudCategories = () => {
 
     // Servicio de editar
     editCategoryService(editingId, editedCategory).then((res) => {
-      console.log('editado', res)
+      if (res) {
+        Swal.fire({
+          title: '¡Producto editado correctamente!',
+          icon: 'success',
+          confirmButtonText: 'Continuar',
+        }).then(() => {
+          // Redirigir después de cerrar el modal
+          navigate('/crud-categorias');
+        });
+      }
      
     }, (error) => {
       console.log('error', error)
@@ -97,7 +109,16 @@ export const CrudCategories = () => {
 
     // Servicio de crear
     createCategoryService(editedCategory).then((res) => {
-      console.log('creado', res)     
+      if (res) {
+        Swal.fire({
+          title: '¡Producto creado correctamente!',
+          icon: 'success',
+          confirmButtonText: 'Continuar',
+        }).then(() => {
+          // Redirigir después de cerrar el modal
+          window.location.reload();
+        });
+      }   
     }, (error) => {
       console.log('error', error)
     });

@@ -4,13 +4,18 @@ import portada from '../img/img-login.png';
 import { FaInstagram } from "react-icons/fa6";
 
 export const Login = () => {
-  
+
   useEffect(() => {
     document.body.classList.add("login-page");
     return () => {
       document.body.classList.remove("login-page");
     };
   }, []);
+
+  const loginUser = async (e) => {
+    // prevenir que se actualice la pantalla
+    e.preventDefault();
+  };
 
   return (
     <div>
@@ -27,7 +32,7 @@ export const Login = () => {
 
                   <div className="col-md-6 col-lg-7 d-flex align-items-center">
                     <div className="card-body p-4 p-lg-5  text-black">
-                      <form>
+                      <form onSubmit={loginUser}>
 
                         <div className="d-flex align-items-center mb-3 pb-1">
                           <img src={logo} className='mx-auto d-block w-50' alt="GoldenSkyMc" />
@@ -35,21 +40,21 @@ export const Login = () => {
 
                         <h5 className="fw-normal mb-3 pb-3 text-white" >Inicia sesión</h5>
 
-                        <div data-mdb-input-init className="form-outline mb-4">
+                        <div className="form-outline mb-4">
                           <input type="email" id="input-email"
-                            className="form-control form-control-lg" placeholder='Correo electrónico' 
-                            required/>
+                            className="form-control form-control-lg" placeholder='Correo electrónico'
+                            required />
                         </div>
 
-                        <div data-mdb-input-init className="form-outline mb-4">
+                        <div className="form-outline mb-4">
                           <input type="password" id="input-pass"
-                            className="form-control form-control-lg" placeholder='Contraseña' 
-                            required/>
+                            className="form-control form-control-lg" placeholder='Contraseña'
+                            required />
                         </div>
 
                         <div className="pt-1 mb-4">
-                          <button data-mdb-button-init data-mdb-ripple-init
-                            className="btn btn-secondary btn-lg btn-block" type="button">
+                          <button
+                            className="btn btn-secondary btn-lg btn-block" type="submit">
                             Ingresar
                           </button>
                         </div>
@@ -59,9 +64,10 @@ export const Login = () => {
                           style="color: #393f81;">Register here</a></p> */}
                         {/* <a href="#!" className="small text-muted">Terms of use.</a> */}
                         {/* <a href="#!" className="small text-muted">Privacy policy</a> */}
-                        <button type="button" data-mdb-button-init data-mdb-ripple-init className="btn btn-warning btn-floating mx-1">
+                        <a href="https://www.instagram.com/goldenskymc/" className="fs-1 text-reset"
+                          target="_blank" rel="noopener noreferrer">
                           <FaInstagram />
-                        </button>
+                        </a>
                       </form>
                     </div>
                   </div>

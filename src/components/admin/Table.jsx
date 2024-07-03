@@ -7,6 +7,7 @@ import {
 import { FaAngleLeft } from "react-icons/fa6";
 import { FaAngleRight } from "react-icons/fa6";
 import { MdOutlineAddBox } from "react-icons/md";
+import { useNavigate } from 'react-router-dom';
 
 
 export const Table = ({ data, columns, name, setTitle }) => {
@@ -15,6 +16,7 @@ export const Table = ({ data, columns, name, setTitle }) => {
 
   const [sorting, setSorting] = useState([]);
   const [filtering, setFiltering] = useState("");
+  const navigate = useNavigate();   // Hook para redirigir
 
   const tables = useReactTable({
     data: data,
@@ -44,11 +46,21 @@ export const Table = ({ data, columns, name, setTitle }) => {
 
       <div className='table-crud__button-create mb-2'>
         <span> <strong> Crear {name} </strong></span>
-        <button className="btn btn-success" onClick={setTitle}
-          data-bs-toggle="modal" data-bs-target="#editModal" tabIndex='-1'>
+        <button className="btn btn-success" onClick={() => {
+          navigate(`/form-productos/create`);
+        }} tabIndex='-1'>
           <MdOutlineAddBox />
         </button>
       </div>
+      <div className=''>
+        <button className="btn btn-secondary me-2" onClick={() => tables.previousPage()}>
+          <FaAngleLeft />
+        </button>
+        <button className="btn btn-secondary" onClick={() => tables.nextPage()}>
+          <FaAngleRight />
+        </button>
+      </div>
+
 
       <table>
         <thead>

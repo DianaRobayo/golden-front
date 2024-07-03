@@ -7,6 +7,7 @@ import { Categories } from '../components/user/Categories'
 import { DetailProduct } from '../components/user/DetailProduct'
 import { CrudCategories } from '../components/admin/category/CrudCategories'
 import { CrudProducts } from '../components/admin/product/CrudProducts'
+import { FormProduct } from '../components/admin/product/FormProduct'
 
 export const AppRouter = () => {
   return (
@@ -23,6 +24,7 @@ export const AppRouter = () => {
         <Route path='/contacto' element={<Contact />}></Route>
         <Route path='/crud-categorias' element={<CrudCategories />}></Route>
         <Route path='/crud-productos' element={<CrudProducts />}></Route>
+        <Route path='/form-productos/:action/:id?' element={<FormProduct />}></Route>
         <Route path='*' element={(
           <div>
             <h1>Error en la página</h1>

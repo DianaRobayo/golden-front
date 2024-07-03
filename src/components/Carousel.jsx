@@ -10,13 +10,13 @@ import leon from '../img/portacelular-leon.jpg';
 
 export const Carousel = () => {
   const products = [
-    { image: chihiro1, product_name: 'Ratón'},
-    { image: pikachu, product_name: 'Pikachu'},
-    { image: hipo, product_name: 'Hipo'},
-    { image: chihiro2, product_name: 'Pulgas'},
-    { image: squartle, product_name: 'Squartle'},
-    { image: leon, product_name: 'León'}, 
-    { image: chihiro3, product_name: 'Dragón'}
+    { image: chihiro1, product_name: 'Ratón', category: 1 },
+    { image: pikachu, product_name: 'Pikachu', category: 1 },
+    { image: hipo, product_name: 'Hipo', category: 2 },
+    { image: chihiro2, product_name: 'Pulgas', category: 1 },
+    { image: squartle, product_name: 'Squartle', category: 1 },
+    { image: leon, product_name: 'León', category: 2 },
+    { image: chihiro3, product_name: 'Dragón', category: 1 }
   ];
 
   return (
@@ -25,8 +25,7 @@ export const Carousel = () => {
         <div className="carousel-inner">
           {products.map((data, index) => (
             <div className={index === 0 ? "carousel-item active" : "carousel-item"} key={index}>
-
-              <img src={data.image} className="d-block"  alt={data.product_name} />
+              <img src={data.image} className="d-block" alt={data.product_name} />
             </div>
           ))}
         </div>
