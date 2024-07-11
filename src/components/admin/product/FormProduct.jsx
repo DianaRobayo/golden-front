@@ -178,7 +178,7 @@ export const FormProduct = () => {
           icon: 'success',
           confirmButtonText: 'Continuar',
         }).then(() => {
-          // Redirigir después de cerrar el modal
+          // Redirigir 
           navigate('/crud-productos');
         });
       }
@@ -186,7 +186,7 @@ export const FormProduct = () => {
     }, (error) => {
       console.log('error', error)
       Swal.fire({
-        title: 'Error al editar el producto ', error,
+        title: 'Error al editar el producto ' + error,
         icon: 'error',
         confirmButtonText: 'Intentar nuevamente',
       });
@@ -224,7 +224,7 @@ export const FormProduct = () => {
           icon: 'success',
           confirmButtonText: 'Continuar',
         }).then(() => {
-          // Redirigir después de cerrar el modal
+          // Redirigir
           navigate('/crud-productos');
         });
       }
@@ -232,7 +232,7 @@ export const FormProduct = () => {
     }, (error) => {
       console.log('error', error)
       Swal.fire({
-        title: 'Error al crear el producto ', error,
+        title: 'Error al crear el producto ' + error,
         icon: 'error',
         confirmButtonText: 'Intentar nuevamente',
       });
@@ -340,7 +340,7 @@ export const FormProduct = () => {
             <div className='row justify-content-center mt-4'>
               <div className="col-6 col-sm-4">
                 <button type='button' className='btn btn-secondary'
-                  data-bs-dismiss="modal" onClick={cancelDelete}>
+                  onClick={cancelDelete}>
                   Regresar
                 </button>
               </div>

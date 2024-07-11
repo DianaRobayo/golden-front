@@ -1,9 +1,15 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import logo from '../img/logo_sin_fondo.png';
 import portada from '../img/img-login.png';
 import { FaInstagram } from "react-icons/fa6";
+import { loginService } from '../services/apiService.service';
+import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 export const Login = () => {
+
+  const [formUser, setFormUser] = useState(null);
+  const navigate = useNavigate();   // Hook para redirigir
 
   useEffect(() => {
     document.body.classList.add("login-page");
@@ -12,9 +18,40 @@ export const Login = () => {
     };
   }, []);
 
+  /* Detecta cambios del formulario de usuario */
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormUser(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
+  }
+
   const loginUser = async (e) => {
     // prevenir que se actualice la pantalla
     e.preventDefault();
+
+    // Servicio de logueo
+    loginService(formUser).then((res) => {
+      if (res) {
+        localStorage.setItem("token", res.access_token);
+        localStorage.setItem("user", JSON.stringify(res.user));
+        
+        Swal.fire({
+          title: '¡Bienvenido!',
+          confirmButtonText: 'Continuar',
+        }).then(() => {
+          // Redirigir
+          navigate('/inicio');
+        });
+      }
+    }, (error) => {
+      Swal.fire({
+        title: 'Error al iniciar sesión verifique por favor su correo y contraseña',
+        icon: 'error',
+        confirmButtonText: 'Intentar nuevamente',
+      });
+    });
   };
 
   return (
@@ -41,20 +78,20 @@ export const Login = () => {
                         <h5 className="fw-normal mb-3 pb-3 text-white" >Inicia sesión</h5>
 
                         <div className="form-outline mb-4">
-                          <input type="email" id="input-email"
+                          <input type="email" id="input-email" onChange={handleChange}
                             className="form-control form-control-lg" placeholder='Correo electrónico'
-                            required />
+                            name="email" required />
                         </div>
 
                         <div className="form-outline mb-4">
-                          <input type="password" id="input-pass"
+                          <input type="password" id="input-pass" onChange={handleChange}
                             className="form-control form-control-lg" placeholder='Contraseña'
-                            required />
+                            name="password" required />
                         </div>
 
                         <div className="pt-1 mb-4">
                           <button
-                            className="btn btn-secondary btn-lg btn-block" type="submit">
+                            className="btn btn_style btn-lg btn-block" type="submit">
                             Ingresar
                           </button>
                         </div>
@@ -64,7 +101,7 @@ export const Login = () => {
                           style="color: #393f81;">Register here</a></p> */}
                         {/* <a href="#!" className="small text-muted">Terms of use.</a> */}
                         {/* <a href="#!" className="small text-muted">Privacy policy</a> */}
-                        <a href="https://www.instagram.com/goldenskymc/" className="fs-1 text-reset"
+                        <a href="https://www.instagram.com/goldenskymc/" className="fs-1 icon-instagram"
                           target="_blank" rel="noopener noreferrer">
                           <FaInstagram />
                         </a>

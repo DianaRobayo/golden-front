@@ -1,10 +1,6 @@
 import React from 'react'
 import logo from '../img/logo_sin_fondo.png';
-import { FaShoppingCart, FaUserCircle } from "react-icons/fa";
-import { GiArchiveRegister } from "react-icons/gi";
-import { MdContactPhone } from "react-icons/md";
-import { FaHome } from "react-icons/fa";
-import { FaClipboardList } from "react-icons/fa";
+import { FaShoppingCart } from "react-icons/fa";
 
 
 export const Navbar = () => {
@@ -77,7 +73,7 @@ export const Navbar = () => {
                   Usuario
                 </a>
                 <ul className="dropdown-menu" aria-labelledby="navbarDropdownMenuAvatar">
-                  <li><a className="dropdown-item" href="/crud-productos">Cerrar sesión</a></li>
+                  <li><a className="dropdown-item" href="/cerrar-sesion">Cerrar sesión</a></li>
                 </ul>
               </li>
             </ul>

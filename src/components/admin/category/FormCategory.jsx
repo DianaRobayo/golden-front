@@ -89,13 +89,18 @@ export const FormCategory = () => {
           icon: 'success',
           confirmButtonText: 'Continuar',
         }).then(() => {
-          // Redirigir después de cerrar el modal
+          // Redirigir
           navigate('/crud-categorias');
         });
       }
 
     }, (error) => {
       console.log('error', error)
+      Swal.fire({
+        title: 'Error al editar la categoría ' + error,
+        icon: 'error',
+        confirmButtonText: 'Intentar nuevamente',
+      });
     });
   }
 
@@ -112,12 +117,17 @@ export const FormCategory = () => {
           icon: 'success',
           confirmButtonText: 'Continuar',
         }).then(() => {
-          // Redirigir después de cerrar el modal
+          // Redirigir
           navigate('/crud-categorias');
         });
       }
     }, (error) => {
       console.log('error', error)
+      Swal.fire({
+        title: 'Error al crear la categoría ' + error,
+        icon: 'error',
+        confirmButtonText: 'Intentar nuevamente',
+      });
     });
   }
 
@@ -156,7 +166,7 @@ export const FormCategory = () => {
             <div className='row justify-content-center mt-4'>
               <div className="col-6 col-sm-4">
                 <button type='button' className='btn btn-secondary'
-                  data-bs-dismiss="modal" onClick={cancelDelete}>
+                  onClick={cancelDelete}>
                   Regresar
                 </button>
               </div>

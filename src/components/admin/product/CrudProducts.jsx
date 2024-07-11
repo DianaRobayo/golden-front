@@ -114,7 +114,7 @@ export const CrudProducts = () => {
 
     }, (error) => {
       Swal.fire({
-        title: 'Error al eliminar el producto ', error,
+        title: 'Error al eliminar el producto ' + error,
         icon: 'error',
         confirmButtonText: 'Intentar nuevamente',
       });
