@@ -25,7 +25,7 @@ export const CardHome = ({ screen }) => {
               respuesta = res.filter(obj => obj.privilege === true);
               break;
             default:
-              respuesta = res.filter(obj => obj.id_category === Number(screen));
+              respuesta = res.filter(obj => obj.categoriesIdCategory === Number(screen));
               break;
           }
 

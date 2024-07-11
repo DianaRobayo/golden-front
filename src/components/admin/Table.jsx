@@ -47,7 +47,10 @@ export const Table = ({ data, columns, name, setTitle }) => {
       <div className='table-crud__button-create mb-2'>
         <span> <strong> Crear {name} </strong></span>
         <button className="btn btn-success" onClick={() => {
-          navigate(`/form-productos/create`);
+          (name === 'Producto') ?
+          navigate(`/form-productos/create`) 
+          : 
+          navigate(`/form-categorias/create`);
         }} tabIndex='-1'>
           <MdOutlineAddBox />
         </button>

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { getAllCategoriesService, createCategoryService, editCategoryService } from '../../../services/apiService.service';
+import { getAllCategoriesService, createCategoryService, editCategoryService, deleteCategoryService } from '../../../services/apiService.service';
 import { Table } from '../Table';
 import { FaEdit } from "react-icons/fa";
+import { MdDelete } from "react-icons/md";
 import { Navbar } from '../../Navbar';
 import { Footer } from '../../Footer';
 import { ModalCategory } from './ModalCategory';
@@ -25,22 +26,24 @@ export const CrudCategories = () => {
     { header: 'Categoría', accessorKey: 'category_name' },
     {
       header: 'Editar', accessorKey: '', cell: (value) => (
-        <button className="btn btn-success" data-bs-toggle="modal"
-          data-bs-target="#editModal" onClick={
+        <button className="btn btn-success" onClick={
             () => {
-              setTitleModal('Editar categoría');
               const id = value.row.original.id_category;
-              setEditingId(id);
-
-              // Activamos el estado de edición
-              setIsEditing(true);
-              const categoryToEdit = categories.find(obj => obj.id_category === id);
-
-              // Establecemos los datos de la persona a editar
-              setEditedCategory({ ...categoryToEdit });            
-
+              navigate(`/form-categorias/edit/${id}`);  
             }}>
           <FaEdit />
+        </button>
+      )
+    },
+    {
+      header: 'Eliminar', accessorKey: '', cell: (value) => (
+        <button className="btn btn-danger" onClick={
+            () => {
+              const id = value.row.original.id_category;
+              const name = value.row.original.category_name;
+              handleDeleteCategory(id, name, value.row.original);
+            }}>
+          <MdDelete />
         </button>
       )
     }
@@ -124,17 +127,37 @@ export const CrudCategories = () => {
     });
   }
 
-  /* Metodo para eliminar */
-  const handleDelete = (id) => {
-    // setDeleteId(id);
-    /* Sin modal se usa lo de abajo */
-    // const updatedPersons = persons.filter(obj => obj.id !== id);
-    // setPersons(updatedPersons);
-  }
-
   const cancelDelete = () => {
     setEditingId(null);
     setDeleteId(null);
+  }
+
+  /* Metodo para eliminar el registro de la categoria */
+  const handleDeleteCategory = (id, name, data) => {
+    deleteCategoryService(id, data).then((res) => {
+      if (res.message) {
+        Swal.fire({
+          title: 'Error al eliminar la categoría ' + res.message,
+          icon: 'error',
+          confirmButtonText: 'Intentar nuevamente',
+        });
+      } else {
+        Swal.fire({
+          title: 'Se ha eliminado la categoría ' + name,
+          icon: 'success',
+          confirmButtonText: 'Continuar',
+        }).then(() => {
+          window.location.reload();
+        });
+      }
+
+    }, (error) => {
+      Swal.fire({
+        title: 'Error al eliminar la categoría ', error,
+        icon: 'error',
+        confirmButtonText: 'Intentar nuevamente',
+      });
+    });
   }
 
   if (!categories) {

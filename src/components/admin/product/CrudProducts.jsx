@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { Table } from '../Table';
 import { FaEdit } from "react-icons/fa";
-import { getAllProductService } from '../../../services/apiService.service';
+import { MdDelete } from "react-icons/md";
+import { deleteProductService, getAllProductService } from '../../../services/apiService.service';
 import { Navbar } from '../../Navbar';
 import { Footer } from '../../Footer';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 
 export const CrudProducts = () => {
@@ -20,7 +22,7 @@ export const CrudProducts = () => {
   const columns = [
     { header: 'Id', accessorKey: 'id_product' },
     { header: 'Producto', accessorKey: 'product_name' },
-    { header: 'Categoría', accessorKey: 'category.category_name' },
+    { header: 'Categoría', accessorKey: 'categories.category_name' },
     {
       header: 'Url de la imagen', accessorKey: 'url_image', cell: (value) => (
         <img src={value.row.original.url_image} alt="image" width="85" height="85" />
@@ -46,6 +48,18 @@ export const CrudProducts = () => {
               navigate(`/form-productos/edit/${id}`);
             }}>
           <FaEdit />
+        </button>
+      )
+    },
+    {
+      header: 'Eliminar', accessorKey: '', cell: (value) => (
+        <button className="btn btn-danger" onClick={
+            () => {
+              const id = value.row.original.id_product;
+              const name = value.row.original.product_name;
+              handleDeleteProduct(id, name, value.row.original);
+            }}>
+          <MdDelete />
         </button>
       )
     }
@@ -77,6 +91,34 @@ export const CrudProducts = () => {
   const cancelDelete = () => {
     setEditingId(null);
     setDeleteId(null);
+  }
+
+  /* Metodo para eliminar el registro del producto */
+  const handleDeleteProduct = (id, name, data) => {
+     deleteProductService(id, data).then((res) => {
+      if (res.message) {
+        Swal.fire({
+          title: 'Error al eliminar el producto ' + res.message,
+          icon: 'error',
+          confirmButtonText: 'Intentar nuevamente',
+        });
+      } else {
+        Swal.fire({
+          title: 'Se ha eliminado el producto ' + name,
+          icon: 'success',
+          confirmButtonText: 'Continuar',
+        }).then(() => {
+          window.location.reload();
+        });
+      }
+
+    }, (error) => {
+      Swal.fire({
+        title: 'Error al eliminar el producto ', error,
+        icon: 'error',
+        confirmButtonText: 'Intentar nuevamente',
+      });
+    });
   }
 
 

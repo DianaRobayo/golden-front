@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { createProductService, editProductService, fetchProductService, getAllCategoriesService, getAllProductService } from '../../../services/apiService.service';
-import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
 
@@ -12,10 +11,27 @@ export const FormProduct = () => {
   const [editingId, setEditingId] = useState(0);
   const [isEditing, setIsEditing] = useState(false);
   const [categories, setCategories] = useState(null);
+  const [title, setTitle] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [file, setFile] = useState(null);
   const navigate = useNavigate();   // Hook para redirigir
+
+  useEffect(() => {
+    const actionProduct = async () => {
+      try {
+        if (action === ' edit') {
+          setTitle('Editar producto');
+        } else if (action === 'create') {
+          setTitle('Crear producto');
+        }
+      } catch (error) {
+
+      }
+    };
+
+    actionProduct();
+  }, []);
 
   /* Productos */
   useEffect(() => {
@@ -56,8 +72,7 @@ export const FormProduct = () => {
             url_image: '',
             price: '0',
             privilege: 0,
-            id_category: '',
-            categoryIdCategory: '',
+            categoriesIdCategory: '',
             category: []
           });
         }
@@ -146,12 +161,18 @@ export const FormProduct = () => {
     formData.append('url_image', product.url_image);
     formData.append('price', product.price ? product.price : '0');
     formData.append('privilege', product.privilege);
-    formData.append('id_category', product.id_category ? product.id_category : 1);
-    formData.append('categoryIdCategory', product.id_category ? product.id_category : 1);
+    formData.append('categoriesIdCategory', product.categoriesIdCategory ? Number(product.categoriesIdCategory) : 1);
 
+    console.log('proddd', product)
     //Servicio de editar
     editProductService(editingId, formData).then((res) => {
-      if (res) {
+      if (res.message) {
+        Swal.fire({
+          title: 'Error al editar el producto ' + res.message,
+          icon: 'error',
+          confirmButtonText: 'Intentar nuevamente',
+        });
+      } else {
         Swal.fire({
           title: '¡Producto editado correctamente!',
           icon: 'success',
@@ -186,12 +207,18 @@ export const FormProduct = () => {
     formData.append('url_image', product.url_image);
     formData.append('price', product.price);
     formData.append('privilege', product.privilege);
-    formData.append('id_category', product.id_category);
-    formData.append('categoryIdCategory', product.id_category);
+    formData.append('categoriesIdCategory', product.categoriesIdCategory);
 
     // Servicio de crear
     createProductService(formData).then((res) => {
-      if (res) {
+      console.log('res', res)
+      if (res.message) {
+        Swal.fire({
+          title: 'Error al crear el producto: ' + res.message,
+          icon: 'error',
+          confirmButtonText: 'Intentar nuevamente',
+        });
+      } else {
         Swal.fire({
           title: '¡Producto creado correctamente!',
           icon: 'success',
@@ -236,7 +263,7 @@ export const FormProduct = () => {
     <div>
       <div className='container'>
         <h2 className='mb-4 mt-4'>
-          {action === 'edit' ? 'Editar producto' : 'Crear producto'}
+          {title}
         </h2>
         {/* <img src={product.url_image} className="img-fluid rounded-start" alt="totoro" /> */}
         <div className='card mt-4'>
@@ -249,10 +276,10 @@ export const FormProduct = () => {
               </div>
 
               <div className="col-6 col-sm-6">
-                <label className="form-label required">Categoría </label>
+                <label className="form-label required">Categoría {typeof(product.categoriesIdCategory)}</label>
                 <div>
-                  <select name="id_category" id="category" className='form-control' defaultValue={1}
-                    onChange={handleChange}>
+                  <select name="categoriesIdCategory" id="categoriesIdCategory" className='form-control' defaultValue={product.categoriesIdCategory}
+                    onChange={handleChange} required>
                     {
                       categories.map((data, index) => (
                         <option value={data.id_category} key={data.id_category}>
@@ -281,7 +308,7 @@ export const FormProduct = () => {
               <div className="col-6 col-sm-6">
                 <label className="form-label required">Precio $</label>
                 <input type="text" className='form-control' name="price"
-                  value={product.price || '0'} onChange={handleChange} required />
+                  value={product.price || ''} onChange={handleChange} required />
               </div>
 
               <div className="col-6 col-sm-6">
@@ -310,14 +337,18 @@ export const FormProduct = () => {
               }
             </div>
 
-            <div className='modal-footer'>
-              <button type='button' className='btn btn-secondary'
-                data-bs-dismiss="modal" onClick={cancelDelete}>
-                Regresar
-              </button>
-              <button type="submit" className='btn btn-success'>
-                {action === 'edit' ? 'Editar' : 'Agregar'}
-              </button>
+            <div className='row justify-content-center mt-4'>
+              <div className="col-6 col-sm-4">
+                <button type='button' className='btn btn-secondary'
+                  data-bs-dismiss="modal" onClick={cancelDelete}>
+                  Regresar
+                </button>
+              </div>
+              <div className="col-6 col-sm-4">
+                <button type="submit" className='btn btn-success'>
+                  {action === 'edit' ? 'Editar' : 'Agregar'}
+                </button>
+              </div>
             </div>
           </form>
         </div>
