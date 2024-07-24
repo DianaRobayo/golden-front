@@ -6,11 +6,16 @@ const apiClient = axios.create({
   // headers: { 'Authorization': 'Bearer' }
 });
 
+export const getAuthHeader = () => {
+  const token = localStorage.getItem("token");
+  return { Authorization: `Bearer ${token}` }
+}
+let headers = getAuthHeader();
+
 /***** SERVICES CATEGORIES *****/
 export const fetchCategoryService = async (id) => {
   try {
-    const response = await apiClient.get(`/category/${id}`);
-    // console.log('entro servicio', response)
+    const response = await apiClient.get(`/category/${id}`, { headers: headers });
     return response.data;
   } catch (error) {
     throw error;
@@ -20,7 +25,6 @@ export const fetchCategoryService = async (id) => {
 export const getAllCategoriesService = async () => {
   try {
     const response = await apiClient.get(`/category`);
-    // console.log('entro categoria all', response)
     return response.data;
   } catch (error) {
     throw error;
@@ -29,32 +33,29 @@ export const getAllCategoriesService = async () => {
 
 export const createCategoryService = async (body) => {
   try {
-    const response = await apiClient.post(`/category`, body);
-    // console.log('entro servicio', response)
+    const response = await apiClient.post(`/category`, body, { headers: headers });
     return response.data;
   } catch (error) {
-    return error;
+    throw error;
   }
 };
 
 export const editCategoryService = async (id, body) => {
   try {
-    const response = await apiClient.put(`/category/${id}`, body);
-    // console.log('entro servicio', response)
+    const response = await apiClient.put(`/category/${id}`, body, { headers: headers });
     return response.data;
   } catch (error) {
-    return error;
+    throw error;
   }
 };
 
-export const deleteCategoryService = async (id, body) => {
+export const deleteCategoryService = async (id) => {
   try {
-    const response = await apiClient.delete(`/category/${id}`, body);
-    // console.log('entro servicio', response)
+    const response = await apiClient.delete(`/category/${id}`, { headers: headers });
     return response.data;
 
   } catch (error) {
-    return error;
+    throw error;
   }
 };
 
@@ -62,8 +63,7 @@ export const deleteCategoryService = async (id, body) => {
 /***** SERVICES PRODUCT *****/
 export const fetchProductService = async (id) => {
   try {
-    const response = await apiClient.get(`/product/${id}`);
-    // console.log('entro product', response)
+    const response = await apiClient.get(`/product/${id}`, { headers: headers });
     return response.data;
   } catch (error) {
     throw error;
@@ -73,7 +73,6 @@ export const fetchProductService = async (id) => {
 export const getAllProductService = async () => {
   try {
     const response = await apiClient.get(`/product`);
-    // console.log('entro all product', response)
     return response.data;
   } catch (error) {
     throw error;
@@ -82,37 +81,40 @@ export const getAllProductService = async () => {
 
 export const createProductService = async (body) => {
   try {
-    const response = await apiClient.post(`/product`, body, { headers: {
-      'content-type': 'multipart/form-data'
-    }});
-    // console.log('entro servicio', response)
+    const response = await apiClient.post(`/product`, body, {
+      headers: {
+        'content-type': 'multipart/form-data',
+        'Authorization': `Bearer ${localStorage.getItem("token")}`
+      }
+    });
     return response.data;
   } catch (error) {
-    return error;
+    throw error;
   }
 };
 
 export const editProductService = async (id, body) => {
   try {
-    const response = await apiClient.put(`/product/${id}`, body, { headers: {
-      'content-type': 'multipart/form-data'
-    }});
-    console.log('entro editar', response)
+    const response = await apiClient.put(`/product/${id}`, body, {
+      headers: {
+        'content-type': 'multipart/form-data',
+        'Authorization': `Bearer ${localStorage.getItem("token")}`
+      }
+    });
     return response.data;
 
   } catch (error) {
-    return error;
+    throw error;
   }
 };
 
-export const deleteProductService = async (id, body) => {
+export const deleteProductService = async (id) => {
   try {
-    const response = await apiClient.delete(`/product/${id}`, body);
-    // console.log('entro servicio', response)
+    const response = await apiClient.delete(`/product/${id}`, { headers: headers });
     return response.data;
 
   } catch (error) {
-    return error;
+    throw error;
   }
 };
 
@@ -120,9 +122,10 @@ export const deleteProductService = async (id, body) => {
 export const loginService = async (body) => {
   try {
     const response = await apiClient.post(`/auth/login`, body);
-    console.log('logueo servicio', response)
     return response.data;
   } catch (error) {
     throw error;
   }
 };
+
+

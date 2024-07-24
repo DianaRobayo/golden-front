@@ -9,16 +9,19 @@ import Swal from 'sweetalert2';
 export const Login = () => {
 
   const [formUser, setFormUser] = useState(null);
+  const [regexEmail, setRegexEmail] = useState('');
+  const [errorField, setErrorField] = useState(null);
   const navigate = useNavigate();   // Hook para redirigir
 
   useEffect(() => {
     document.body.classList.add("login-page");
+    setRegexEmail('[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,5}');
     return () => {
       document.body.classList.remove("login-page");
     };
   }, []);
 
-  /* Detecta cambios del formulario de usuario */
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormUser(prevState => ({
@@ -36,7 +39,7 @@ export const Login = () => {
       if (res) {
         localStorage.setItem("token", res.access_token);
         localStorage.setItem("user", JSON.stringify(res.user));
-        
+
         Swal.fire({
           title: '¡Bienvenido!',
           confirmButtonText: 'Continuar',
@@ -53,6 +56,20 @@ export const Login = () => {
       });
     });
   };
+
+  /* Detecta cambios del correo */
+  const handleChangeEmail = (e) => {
+    if (e.target.value.match(regexEmail) == null) {
+      setErrorField('Correo inválido');      
+    } else {
+      setErrorField('');
+      const { name, value } = e.target;
+      setFormUser(prevState => ({
+        ...prevState,
+        [name]: value
+      }));
+    }
+  }
 
   return (
     <div>
@@ -78,9 +95,10 @@ export const Login = () => {
                         <h5 className="fw-normal mb-3 pb-3 text-white" >Inicia sesión</h5>
 
                         <div className="form-outline mb-4">
-                          <input type="email" id="input-email" onChange={handleChange}
+                          <input type="email" id="input-email" onChange={handleChangeEmail}
                             className="form-control form-control-lg" placeholder='Correo electrónico'
                             name="email" required />
+                            {errorField && <span className="text-warning">{errorField}</span>}
                         </div>
 
                         <div className="form-outline mb-4">
@@ -97,10 +115,9 @@ export const Login = () => {
                         </div>
 
                         {/* <a className="small text-muted" href="#!">Forgot password?</a> */}
-                        {/* <p className="mb-5 pb-lg-2" style="color: #393f81;">Don't have an account? <a href="#!"
-                          style="color: #393f81;">Register here</a></p> */}
-                        {/* <a href="#!" className="small text-muted">Terms of use.</a> */}
-                        {/* <a href="#!" className="small text-muted">Privacy policy</a> */}
+                        <a href="/inicio" className="text-white">
+                          <p className="mb-5 pb-lg-2">No tengo una cuenta y soy cliente</p>
+                        </a>
                         <a href="https://www.instagram.com/goldenskymc/" className="fs-1 icon-instagram"
                           target="_blank" rel="noopener noreferrer">
                           <FaInstagram />

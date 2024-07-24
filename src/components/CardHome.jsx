@@ -14,12 +14,9 @@ export const CardHome = ({ screen }) => {
     const getProducts = async () => {
       try {
         const res = await getAllProductService();
-        console.log('controler response', res)
 
-        // const data = await response.json();
         if (res) {
           let respuesta;
-          console.log('screen', typeof screen)
           switch (screen) {
             case 'home':
               respuesta = res.filter(obj => obj.privilege === true);
@@ -30,10 +27,7 @@ export const CardHome = ({ screen }) => {
           }
 
           setProduct(respuesta);
-
-        } else {
-          console.log('error')
-        }
+        } 
 
       } catch (error) {
         setError(error.message);

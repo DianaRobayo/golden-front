@@ -95,12 +95,21 @@ export const FormCategory = () => {
       }
 
     }, (error) => {
-      console.log('error', error)
-      Swal.fire({
-        title: 'Error al editar la categoría ' + error,
-        icon: 'error',
-        confirmButtonText: 'Intentar nuevamente',
-      });
+      if (error.response.status === 401) {
+        Swal.fire({
+          title: 'Error de autenticación',
+          icon: 'error',
+          confirmButtonText: 'Continuar',
+        }).then(() => {
+          navigate('/login');
+        });
+      } else {
+        Swal.fire({
+          title: 'Error al editar la categoría ' + error.message,
+          icon: 'error',
+          confirmButtonText: 'Intentar nuevamente',
+        });
+      }
     });
   }
 
@@ -122,12 +131,21 @@ export const FormCategory = () => {
         });
       }
     }, (error) => {
-      console.log('error', error)
-      Swal.fire({
-        title: 'Error al crear la categoría ' + error,
-        icon: 'error',
-        confirmButtonText: 'Intentar nuevamente',
-      });
+      if (error.response.status === 401) {
+        Swal.fire({
+          title: 'Error de autenticación',
+          icon: 'error',
+          confirmButtonText: 'Continuar',
+        }).then(() => {
+          navigate('/login');
+        });
+      } else {
+        Swal.fire({
+          title: 'Error al crear la categoría ' + error.message,
+          icon: 'error',
+          confirmButtonText: 'Intentar nuevamente',
+        });
+      }
     });
   }
 

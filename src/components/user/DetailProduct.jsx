@@ -16,12 +16,7 @@ export const DetailProduct = () => {
     const getDetailProduct = async () => {
       try {
         const res = await fetchProductService(id);
-
-        if (res) {
-          setProduct(res);
-        } else {
-          console.log('error')
-        }
+        if (res) setProduct(res);        
 
       } catch (error) {
         setError(error.message);
@@ -58,7 +53,7 @@ export const DetailProduct = () => {
         <div className="card card_detail mb-3 mw-100 mt-5">
           <div className="row g-0">
             <div className="col-md-4 p-2">
-              <img src={product.url_image} className="img-fluid rounded-start" alt="totoro" />
+              <img src={product.url_image} className="img-fluid img-detail rounded-start" alt="totoro" />
             </div>
             <div className="col-md-8">
               <div className="card-body">
@@ -66,7 +61,7 @@ export const DetailProduct = () => {
                 <p className="card-text fs-3 fw-bold text-start">$ {product.price}</p>
 
                 <div className="d-flex align-items-start">
-                  <div className="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                  <div className="nav flex-column nav-pills me-5 detail" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                     <button className="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Detalle</button>
                     <button className="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">Materiales</button>
                   </div>
@@ -78,7 +73,7 @@ export const DetailProduct = () => {
                     <div className="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
                       <ul>
                         {product.material.split(', ').map((data, index) => (
-                          <li key={index} >
+                          <li id="list-material"  key={index} >
                             {data}
                           </li>
                         ))}

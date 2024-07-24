@@ -43,10 +43,10 @@ export const CrudProducts = () => {
     {
       header: 'Editar', accessorKey: '', cell: (value) => (
         <button className="btn btn-success" onClick={
-            () => {
-              const id = value.row.original.id_product;
-              navigate(`/form-productos/edit/${id}`);
-            }}>
+          () => {
+            const id = value.row.original.id_product;
+            navigate(`/form-productos/edit/${id}`);
+          }}>
           <FaEdit />
         </button>
       )
@@ -54,11 +54,11 @@ export const CrudProducts = () => {
     {
       header: 'Eliminar', accessorKey: '', cell: (value) => (
         <button className="btn btn-danger" onClick={
-            () => {
-              const id = value.row.original.id_product;
-              const name = value.row.original.product_name;
-              handleDeleteProduct(id, name, value.row.original);
-            }}>
+          () => {
+            const id = value.row.original.id_product;
+            const name = value.row.original.product_name;
+            handleDeleteProduct(id, name);
+          }}>
           <MdDelete />
         </button>
       )
@@ -94,8 +94,8 @@ export const CrudProducts = () => {
   }
 
   /* Metodo para eliminar el registro del producto */
-  const handleDeleteProduct = (id, name, data) => {
-     deleteProductService(id, data).then((res) => {
+  const handleDeleteProduct = (id, name) => {
+    deleteProductService(id).then((res) => {
       if (res.message) {
         Swal.fire({
           title: 'Error al eliminar el producto ' + res.message,
@@ -113,11 +113,21 @@ export const CrudProducts = () => {
       }
 
     }, (error) => {
-      Swal.fire({
-        title: 'Error al eliminar el producto ' + error,
-        icon: 'error',
-        confirmButtonText: 'Intentar nuevamente',
-      });
+      if (error.response.status === 401) {
+        Swal.fire({
+          title: 'Error de autenticación',
+          icon: 'error',
+          confirmButtonText: 'Continuar',
+        }).then(() => {
+          navigate('/login');
+        });
+      } else {
+        Swal.fire({
+          title: 'Error al eliminar el producto ' + error.message,
+          icon: 'error',
+          confirmButtonText: 'Intentar nuevamente',
+        });
+      }
     });
   }
 

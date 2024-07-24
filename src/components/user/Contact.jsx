@@ -13,11 +13,22 @@ export const Contact = () => {
       <div className='contact-page__banner'>
         <img src={banner} className="" alt="banner" />
       </div>
-      <div className='contact-page__socials mt-5 mb-12'>
+
+      <div className='row'>
+        <div className="col-sm-6 col-lg-4 mb-4 mt-2 p-2 card-contact" >
+          <div className=" text-center">
+            <div className="">
+              <img src={letrero} className="mb-5 bg-body rounded" width="600" height="520" alt={'letrero'} />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className='contact-page__socials p-5 mb-12'>
         <h2 className='mb-5 text-primary-dark'> Gracias por visitar nuestra página </h2>
         <div className="row g-4 align-items-center">
           <div className='col col-12 col-md-4'>
-            <a href="https://www.instagram.com/goldenskymc/" className="fs-1 me-4 text-reset"
+            <a href="https://www.instagram.com/goldenskymc/" className="fs-1 me-4 icon-instagram"
               target="_blank" rel="noopener noreferrer">
               <FaInstagram />
             </a>
@@ -26,7 +37,8 @@ export const Contact = () => {
 
           </div>
           <div className='col col-12 col-md-4'>
-            <a href="https://www.instagram.com/goldenskymc/" className="fs-1 me-4 text-success">
+            <a href="https://wa.me/3194773326" className="fs-1 me-4 text-success"
+              target="_blank" rel="noopener noreferrer">
               <FaWhatsapp />
             </a>
             <p>Whatsapp +57 319 4773326</p>
@@ -38,19 +50,6 @@ export const Contact = () => {
         </div>
       </div>
       <div></div>
-      <hr />
-
-      <div className='row'>
-        <div className="col-sm-6 col-lg-4 mb-4 mt-4 card-contact" >
-          <div className=" text-center">
-            <div className="">
-                <img src={letrero} className="mb-5 bg-body rounded" width="400" height="450" alt={'letrero'} />
-            </div>
-          </div>
-        </div>
-      </div>
-
-
     </div>
   )
 }

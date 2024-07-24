@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { getAllCategoriesService, createCategoryService, editCategoryService, deleteCategoryService } from '../../../services/apiService.service';
+import { getAllCategoriesService, deleteCategoryService } from '../../../services/apiService.service';
 import { Table } from '../Table';
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
@@ -38,7 +38,7 @@ export const CrudCategories = () => {
             () => {
               const id = value.row.original.id_category;
               const name = value.row.original.category_name;
-              handleDeleteCategory(id, name, value.row.original);
+              handleDeleteCategory(id, name);
             }}>
           <MdDelete />
         </button>
@@ -75,7 +75,7 @@ export const CrudCategories = () => {
 
   /* Metodo para eliminar el registro de la categoria */
   const handleDeleteCategory = (id, name, data) => {
-    deleteCategoryService(id, data).then((res) => {
+    deleteCategoryService(id).then((res) => {
       if (res.message) {
         Swal.fire({
           title: 'Error al eliminar la categoría ' + res.message,
@@ -92,12 +92,22 @@ export const CrudCategories = () => {
         });
       }
 
-    }, (error) => {
-      Swal.fire({
-        title: 'Error al eliminar la categoría ' + error,
-        icon: 'error',
-        confirmButtonText: 'Intentar nuevamente',
-      });
+    }, (error) => {    
+      if (error.response.status === 401) {
+        Swal.fire({
+          title: 'Error de autenticación',
+          icon: 'error',
+          confirmButtonText: 'Continuar',
+        }).then(() => {
+          navigate('/login');
+        });
+      } else {
+        Swal.fire({
+          title: 'Error al eliminar la categoría ' + error.message,
+          icon: 'error',
+          confirmButtonText: 'Intentar nuevamente',
+        });
+      }
     });
   }
 

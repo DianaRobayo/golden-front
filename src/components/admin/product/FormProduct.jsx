@@ -43,6 +43,15 @@ export const FormProduct = () => {
         }
 
       } catch (error) {
+        if (error.response.status === 401) {
+          Swal.fire({
+            title: 'Error de autenticación',
+            icon: 'error',
+            confirmButtonText: 'Continuar',
+          }).then(() => {
+            navigate('/login');
+          });
+        }
         setError(error.message);
       } finally {
         setLoading(false);
@@ -97,6 +106,15 @@ export const FormProduct = () => {
         }
 
       } catch (error) {
+        if (error.response.status === 401) {
+          Swal.fire({
+            title: 'Error de autenticación',
+            icon: 'error',
+            confirmButtonText: 'Continuar',
+          }).then(() => {
+            navigate('/login');
+          });
+        }
         setError(error.message);
       } finally {
         setLoading(false);
@@ -163,7 +181,6 @@ export const FormProduct = () => {
     formData.append('privilege', product.privilege);
     formData.append('categoriesIdCategory', product.categoriesIdCategory ? Number(product.categoriesIdCategory) : 1);
 
-    console.log('proddd', product)
     //Servicio de editar
     editProductService(editingId, formData).then((res) => {
       if (res.message) {
@@ -184,12 +201,21 @@ export const FormProduct = () => {
       }
 
     }, (error) => {
-      console.log('error', error)
-      Swal.fire({
-        title: 'Error al editar el producto ' + error,
-        icon: 'error',
-        confirmButtonText: 'Intentar nuevamente',
-      });
+      if (error.response.status === 401) {
+        Swal.fire({
+          title: 'Error de autenticación',
+          icon: 'error',
+          confirmButtonText: 'Continuar',
+        }).then(() => {
+          navigate('/login');
+        });
+      } else {
+        Swal.fire({
+          title: 'Error al editar el producto ' + error.message,
+          icon: 'error',
+          confirmButtonText: 'Intentar nuevamente',
+        });
+      }
     });
   }
 
@@ -211,7 +237,6 @@ export const FormProduct = () => {
 
     // Servicio de crear
     createProductService(formData).then((res) => {
-      console.log('res', res)
       if (res.message) {
         Swal.fire({
           title: 'Error al crear el producto: ' + res.message,
@@ -230,12 +255,21 @@ export const FormProduct = () => {
       }
 
     }, (error) => {
-      console.log('error', error)
-      Swal.fire({
-        title: 'Error al crear el producto ' + error,
-        icon: 'error',
-        confirmButtonText: 'Intentar nuevamente',
-      });
+      if (error.response.status === 401) {
+        Swal.fire({
+          title: 'Error de autenticación',
+          icon: 'error',
+          confirmButtonText: 'Continuar',
+        }).then(() => {
+          navigate('/login');
+        });
+      } else {
+        Swal.fire({
+          title: 'Error al crear el producto ' + error.message,
+          icon: 'error',
+          confirmButtonText: 'Intentar nuevamente',
+        });
+      }
     });
   }
 
@@ -276,10 +310,10 @@ export const FormProduct = () => {
               </div>
 
               <div className="col-6 col-sm-6">
-                <label className="form-label required">Categoría {typeof(product.categoriesIdCategory)}</label>
+                <label className="form-label required">Categoría</label>
                 <div>
-                  <select name="categoriesIdCategory" id="categoriesIdCategory" className='form-control' defaultValue={product.categoriesIdCategory}
-                    onChange={handleChange} required>
+                  <select name="categoriesIdCategory" id="categoriesIdCategory" className='form-control' 
+                    defaultValue={product.categoriesIdCategory} onChange={handleChange} required>
                     {
                       categories.map((data, index) => (
                         <option value={data.id_category} key={data.id_category}>
@@ -299,7 +333,7 @@ export const FormProduct = () => {
               </div>
 
               <div className="col-6 col-sm-6">
-                <label className="col-form-label">Descripción </label>
+                <label className="form-label required">Descripción </label>
                 <textarea rows="2" className="form-control" name="description"
                   value={product.description || ''} onChange={handleChange} required>
                 </textarea>
@@ -312,7 +346,7 @@ export const FormProduct = () => {
               </div>
 
               <div className="col-6 col-sm-6">
-                <label className="form-label required">Destacado </label>
+                <label className="form-label">Destacado </label>
                 <div className="form-check">
                   <input className="checkbox-inline" type="checkbox" name='privilege'
                     checked={product.privilege && true ? true : false} onChange={handleChangeCheck} />

@@ -8,7 +8,6 @@ import { Footer } from '../Footer';
 export const Categories = () => {
   const { page } = useParams();
   const [title, setTitle] = useState('');
-  console.log('od', page)
 
   useEffect(() => {
     setTitleCategory();
@@ -32,15 +31,13 @@ export const Categories = () => {
       default:
         break;
     }
-
   }
+
   return (
     <div>
       <Navbar />
       <div className='container'>
         <h3 className='mt-5'>{title}</h3>
-        {/* <Carousel /> */}
-        {/* <br /> */}
         <CardHome screen={page} />
       </div>
       <Footer />

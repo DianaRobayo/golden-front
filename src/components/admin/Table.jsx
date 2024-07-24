@@ -11,8 +11,6 @@ import { useNavigate } from 'react-router-dom';
 
 
 export const Table = ({ data, columns, name, setTitle }) => {
-  // console.log('data', data)
-  // console.log('columns', columns)
 
   const [sorting, setSorting] = useState([]);
   const [filtering, setFiltering] = useState("");
@@ -100,8 +98,8 @@ export const Table = ({ data, columns, name, setTitle }) => {
 
       <div className='mt-4'>
         {/* <button onClick={() => tables.setPageIndex(0)}>
-        Primera página
-      </button> */}
+          Primera página
+        </button> */}
         <button className="btn btn-secondary me-2" onClick={() => tables.previousPage()}>
           <FaAngleLeft />
         </button>
@@ -109,8 +107,8 @@ export const Table = ({ data, columns, name, setTitle }) => {
           <FaAngleRight />
         </button>
         {/* <button onClick={() => tables.setPageIndex(tables.getPageCount() - 1)}>
-        Última página
-      </button> */}
+          Última página
+        </button> */}
       </div>
 
     </div>

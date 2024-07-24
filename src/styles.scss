@@ -1,15 +1,27 @@
+body {
+  font-family: 'Montserrat';
+  // font-family: 'Roboto', sans-serif;
+}
+
+/* Navbar */
+.bg-navbar {
+  background: rgb(23, 76, 105) !important;
+  background: linear-gradient(0deg, rgba(16, 60, 84, 1) 16%, rgba(13, 44, 74, 1) 44%, rgba(21, 32, 42, 1) 83%) !important;
+}
+
 /* Login */
 .section-login {}
 
-.btn_style{
+.btn_style {
   background-color: #be6e23;
   color: white;
 }
 
-.icon-instagram{
-  :hover{
+.icon-instagram {
+  :hover {
     color: #cf6a0b;
   }
+
   color: #d49962;
 }
 
@@ -22,7 +34,6 @@
 .style-img {
   border-radius: 2rem 0 0 1rem;
 }
-
 /* Fin Login */
 
 /* Carousel */
@@ -34,7 +45,6 @@
     }
   }
 }
-
 /* Fin Carousel */
 
 /* Cards */
@@ -64,7 +74,7 @@
   details {
     background-color: #315a7abb;
     font-size: 13px;
-    border-radius: 30px 0 0 0;    
+    border-radius: 30px 0 0 0;
   }
 
   details[open]>summary {
@@ -72,8 +82,6 @@
     background-color: #315a7a;
     border-radius: 30px 0px 0px 0px;
   }
-
-  // border-radius: 2rem 0 0 1rem;
 }
 
 .container-img {
@@ -119,6 +127,20 @@
 
 .img-combo_pokemon {
   box-shadow: 0px 0px 28px 4px #efaa79;
+  --_g: 10% /45% 45% no-repeat linear-gradient(#000 0 0);
+  --m:
+    left var(--_i, 0%) top var(--_g),
+    bottom var(--_i, 0%) left var(--_g),
+    top var(--_i, 0%) right var(--_g),
+    right var(--_i, 0%) bottom var(--_g);
+  -webkit-mask: var(--m);
+  mask: var(--m);
+  transition: .3s linear;
+  cursor: pointer;
+}
+
+.img-combo_pokemon:hover {
+  --_i: 10%;
 }
 
 .img-combo_marvel {
@@ -128,7 +150,6 @@
 .img-combo_cel {
   box-shadow: 0px 0px 28px 4px #bc82e2;
 }
-
 /* Fin Cards */
 
 /* Contact */
@@ -138,8 +159,8 @@
 
   &__banner {
     img {
-      width: 100%;
-      height: 40rem;
+      width: 90%;
+      height: 30rem;
     }
   }
 
@@ -158,7 +179,7 @@
   }
 }
 
-.card-contact{
+.card-contact {
   position: sticky;
   left: 33.3333%;
   top: 310px;
@@ -166,7 +187,8 @@
 
 /* Footer */
 .style-footer {
-  background-color: #212529;
+  background: rgb(24,74,101);
+  background: linear-gradient(0deg, rgba(24,74,101,1) 9%, rgba(25,53,82,1) 43%, rgba(9,29,48,1) 77%);
   color: white;
 }
 
@@ -187,7 +209,7 @@ table {
 }
 
 thead {
-  background-color: #333;
+  background-color: #132d49;
   color: white;
 }
 
@@ -214,5 +236,27 @@ tr:nth-child(even) {
 /* Detalle producto */
 .card_detail {
   width: 1000px;
+  display: flex;
+  justify-content: center;
 }
 
+.img-detail {
+  --_g: 10% /45% 45% no-repeat linear-gradient(#000 0 0);
+  --m:
+    left var(--_i, 0%) top var(--_g),
+    bottom var(--_i, 0%) left var(--_g),
+    top var(--_i, 0%) right var(--_g),
+    right var(--_i, 0%) bottom var(--_g);
+  -webkit-mask: var(--m);
+  mask: var(--m);
+  transition: .3s linear;
+  cursor: pointer;
+}
+
+.img-detail:hover {
+  --_i: 10%;
+}
+
+#list-material::marker {
+  content: '🎨';
+}
